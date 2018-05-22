@@ -10,9 +10,22 @@ import SpriteKit
 
 public class FoodSprite : SKSpriteNode, Palettable {
   public static let foodDishName = "FoodDish"
+  static  let food = [  "carrot",
+                        "chili",
+                        "tomato",
+                        "cherries",
+                        "strawberry",
+                        "grapes",
+                        "pineapple",
+                        "raspberry",
+                        "orange",
+                        "apple"]
+
+  public static var foodIndex = 0
 
   public static func newInstance(palette : ColorPalette) -> FoodSprite {
-    let foodDish = FoodSprite(imageNamed: "food_dish")
+    foodIndex = Int(arc4random_uniform(UInt32(food.count)))
+    let foodDish = FoodSprite(imageNamed: food[foodIndex])
     foodDish.name = foodDishName
     foodDish.color = palette.foodBowlColor
     foodDish.colorBlendFactor = 1
@@ -26,13 +39,13 @@ public class FoodSprite : SKSpriteNode, Palettable {
     foodDish.zPosition = 3
 
     //Generate Food Topping - Currently will always be brown
-    let foodHeight = foodDish.size.height * 0.25
-    let foodShape = SKShapeNode(rect: CGRect(x: 0, y: -foodHeight, width: foodDish.size.width, height: foodHeight))
-    foodShape.fillColor = SKColor(red:0.36, green:0.21, blue:0.08, alpha:1.0)
-    foodShape.strokeColor = SKColor.clear
-    foodShape.zPosition = 4
-
-    foodDish.addChild(foodShape)
+//    let foodHeight = foodDish.size.height * 0.25
+//    let foodShape = SKShapeNode(rect: CGRect(x: 0, y: -foodHeight, width: foodDish.size.width, height: foodHeight))
+//    foodShape.fillColor = SKColor(red:0.36, green:0.21, blue:0.08, alpha:1.0)
+//    foodShape.strokeColor = SKColor.clear
+//    foodShape.zPosition = 4
+//
+//    foodDish.addChild(foodShape)
 
     return foodDish
   }

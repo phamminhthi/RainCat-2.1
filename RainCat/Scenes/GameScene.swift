@@ -9,6 +9,7 @@
 import SpriteKit
 
 class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate {
+  public static var foodIndex = 0
   private var currentRainDropSpawnTime : TimeInterval = 0
   private var rainDropSpawnRate : TimeInterval = 0.5
   private let foodEdgeMargin : CGFloat = 75.0
@@ -255,11 +256,12 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate {
     }
 
     if !containsFood {
+      GameScene.foodIndex = FoodSprite.foodIndex
       food = FoodSprite.newInstance(palette: currentPalette)
       var randomPosition : CGFloat = CGFloat(arc4random())
       randomPosition = randomPosition.truncatingRemainder(dividingBy: size.width - foodEdgeMargin * 2)
       randomPosition += foodEdgeMargin
-
+      //  print(randomPosition)
       food?.position = CGPoint(x: randomPosition, y: size.height)
       food?.physicsBody?.friction = 100
       addChild(food!)
@@ -323,7 +325,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate {
     case FloorCategory:
       cat.isGrounded = true
     default:
-      print("Something hit the cat")
+      cat.callFoodName()
     }
   }
 

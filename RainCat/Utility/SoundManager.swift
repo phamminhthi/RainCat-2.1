@@ -42,6 +42,16 @@ class SoundManager : NSObject, AVAudioPlayerDelegate {
     "cat_meow_6.wav",
     "cat_meow_7.mp3"
   ]
+  private  let foodAudio = [  "carrot.mp3",
+                          "chili.mp3",
+                          "tomato.mp3",
+                          "cherries.mp3",
+                          "strawberry.mp3",
+                          "grapes.mp3",
+                          "pineapple.mp3",
+                          "raspberry.mp3",
+                          "orange.mp3",
+                          "apple.mp3"]
 
   private var soundTempMuted = false
 
@@ -118,6 +128,13 @@ class SoundManager : NSObject, AVAudioPlayerDelegate {
           withKey: "action_sound_effect")
     }
   }
+    public func callFoodName(node : SKNode) {
+        if !UserDefaultsManager.sharedInstance.isMuted && node.action(forKey: "action_sound_effect") == nil {
+            
+            node.run(SKAction.playSoundFileNamed(foodAudio[GameScene.foodIndex], waitForCompletion: true),
+                     withKey: "action_sound_effect")
+        }
+    }
 
   public static func playLCDPickup(node : SKNode) {
     if !UserDefaultsManager.sharedInstance.isMuted {

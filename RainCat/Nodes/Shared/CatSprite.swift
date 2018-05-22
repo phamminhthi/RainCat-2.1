@@ -147,4 +147,7 @@ class CatSprite : SKAControlSprite {
     
     SoundManager.sharedInstance.meow(node: self)
   }
+    public func callFoodName(){
+        SoundManager.sharedInstance.callFoodName(node: self)
+    }
 }
