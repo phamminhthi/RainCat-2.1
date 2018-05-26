@@ -14,6 +14,7 @@ let UmbrellaCategory   : UInt32 = 0x1 << 3
 let WorldFrameCategory : UInt32 = 0x1 << 4
 let CatCategory        : UInt32 = 0x1 << 5
 let FoodCategory       : UInt32 = 0x1 << 6
+let FoodCategory2       : UInt32 = 0x1 << 7
 
 let colorChangeDuration : TimeInterval = 0.25
 

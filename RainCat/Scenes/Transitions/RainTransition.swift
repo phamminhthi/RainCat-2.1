@@ -234,6 +234,7 @@ class RainTransition : SKNode {
 
     if childAtPoint == nil {
       childAtPoint = (children[Int(arc4random()) % children.count] as! SKSpriteNode)
+        //print(childAtPoint)
     }
 
     let coordinates = childAtPoint?.name?.characters.split{$0 == "."}.map(String.init)

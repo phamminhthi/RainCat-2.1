@@ -10,14 +10,14 @@ import SpriteKit
 
 public class FoodSprite : SKSpriteNode, Palettable {
   public static let foodDishName = "FoodDish"
-  static  let food = [  "carrot",
-                        "chili",
+  static  let food = [  "corn",
+                        "melon",
                         "tomato",
                         "cherries",
-                        "strawberry",
+                        "pear",
                         "grapes",
                         "pineapple",
-                        "raspberry",
+                        "mango",
                         "orange",
                         "apple"]
 
@@ -49,6 +49,22 @@ public class FoodSprite : SKSpriteNode, Palettable {
 
     return foodDish
   }
+    public static func newInstanceCatFood(palette : ColorPalette,foodName:String) -> FoodSprite {
+        let foodDish = FoodSprite(imageNamed: foodName)
+        foodDish.name = foodName
+        foodDish.color = palette.foodBowlColor
+        foodDish.colorBlendFactor = 1
+        
+        foodDish.anchorPoint = CGPoint(x:0,y:1)
+        
+        foodDish.physicsBody = SKPhysicsBody(rectangleOf: foodDish.size,
+                                             center: CGPoint(x: foodDish.size.width / 2, y: -foodDish.size.height / 2))
+        foodDish.physicsBody?.categoryBitMask = RainDropCategory
+        foodDish.physicsBody?.contactTestBitMask = WorldFrameCategory | RainDropCategory | CatCategory
+        foodDish.zPosition = 3
+        
+        return foodDish
+    }
 
   public func updatePalette(palette: ColorPalette) {
     run(ColorAction().colorTransitionAction(fromColor: color, toColor: palette.foodBowlColor, duration: colorChangeDuration))

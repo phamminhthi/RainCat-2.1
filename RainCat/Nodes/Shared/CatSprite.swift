@@ -17,6 +17,8 @@ class CatSprite : SKAControlSprite {
 
   private let dashCoolDown : TimeInterval = 1
   private var timeSinceLastDash : TimeInterval = 3
+    public static var left = false
+    public static var right = false
 
   private var currentRainHits = 4
   private let maxRainHits = 4
@@ -82,9 +84,13 @@ class CatSprite : SKAControlSprite {
           //Food is left
           physicsBody?.velocity.dx = -movementSpeed
           xScale = -1 * abs(xScale)
+            CatSprite.left = true
+            CatSprite.right = false
         } else {
           //Food is right
           physicsBody?.velocity.dx = movementSpeed
+            CatSprite.left = false
+            CatSprite.right = true
           xScale = abs(xScale)
         }
       } else {

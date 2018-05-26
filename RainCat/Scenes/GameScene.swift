@@ -7,8 +7,13 @@
 //
 
 import SpriteKit
+import Speech
 
-class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate {
+class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRecognizerDelegate {
+  private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))
+  private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+  private var recognitionTask: SFSpeechRecognitionTask?
+  private let audioEngine = AVAudioEngine()
   public static var foodIndex = 0
   private var currentRainDropSpawnTime : TimeInterval = 0
   private var rainDropSpawnRate : TimeInterval = 0.5
@@ -35,6 +40,8 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate {
   override func detachedFromScene() {}
 
   override func layoutScene(size : CGSize, extras menuExtras: MenuExtras?) {
+    //speechRecognizer?.delegate = self
+    startRecording()
     if let extras = menuExtras {
       rainScale = extras.rainScale
       catScale = extras.catScale
@@ -43,7 +50,6 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate {
     isUserInteractionEnabled = true
 
     anchorPoint = CGPoint()
-
     var highScore = 0
     if isMultiplayer {
       highScore = UserDefaultsManager.sharedInstance.getClassicMultiplayerHighScore()
@@ -81,6 +87,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate {
     umbrella.updatePosition(point: CGPoint(x: frame.midX, y: frame.midY))
 
     addChild(umbrella)
+    //startRecording()
   }
 
   override func attachedToScene() {
@@ -100,10 +107,15 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate {
   }
 
   func quitPressed() {
+
     if let parent = parent as? Router {
       parent.navigate(to: .MainMenu, extras: MenuExtras(rainScale: 0,
                                                         catScale: 0,
                                                         transition: TransitionExtras(transitionType: .ScaleInLinearTop)))
+        if audioEngine.isRunning {
+            audioEngine.stop()
+            recognitionRequest?.endAudio()
+        }
     }
   }
 
@@ -261,7 +273,8 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate {
       var randomPosition : CGFloat = CGFloat(arc4random())
       randomPosition = randomPosition.truncatingRemainder(dividingBy: size.width - foodEdgeMargin * 2)
       randomPosition += foodEdgeMargin
-      //  print(randomPosition)
+        
+      print(randomPosition)
       food?.position = CGPoint(x: randomPosition, y: size.height)
       food?.physicsBody?.friction = 100
       addChild(food!)
@@ -410,4 +423,138 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate {
   deinit {
     print("game scene destroyed")
   }
+    
+    func startRecording() {
+
+        if recognitionTask != nil {
+            recognitionTask?.cancel()
+            recognitionTask = nil
+        }
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try audioSession.setMode(AVAudioSessionModeMeasurement)
+            try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
+        } catch {
+            print("audioSession properties weren't set because of an error.")
+        }
+        
+        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+        
+        guard let inputNode = audioEngine.inputNode else {
+            fatalError("Audio engine has no input node")
+        }
+        
+        guard let recognitionRequest = recognitionRequest else {
+            fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
+        }
+        
+        recognitionRequest.shouldReportPartialResults = true
+        
+        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
+            
+            var isFinal = false
+            if let result = result, result.isFinal {
+                var lastString = ""
+                let bestString = result.bestTranscription.formattedString.lowercased()
+                for i in result.bestTranscription.segments {
+                    let indexTo = bestString.index(bestString.startIndex, offsetBy: i.substringRange.location)
+                    lastString = bestString.substring(from: indexTo)
+                    
+                }
+                
+                isFinal = result.isFinal
+//                if isFinal {
+//                    print(lastString)
+//                }
+                self.checkFruit(resultString: lastString)
+                
+                
+                
+            }
+            
+            if error != nil || isFinal {
+                self.audioEngine.stop()
+                inputNode.removeTap(onBus: 0)
+                
+                self.recognitionRequest = nil
+                self.recognitionTask = nil
+                self.startRecording()
+                //self.microphoneButton.isEnabled = true
+            }
+        })
+        
+        let recordingFormat = inputNode.outputFormat(forBus: 0)
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer, when) in
+            self.recognitionRequest?.append(buffer)
+        }
+        
+        audioEngine.prepare()
+        
+        do {
+            try audioEngine.start()
+        } catch {
+            print("audioEngine couldn't start because of an error.")
+        }
+        //textView.text = "Say something, I'm listening!"
+        
+        
+    }
+    func checkFruit(resultString: String) {
+        var x = cat.position.x
+        
+        print(x)
+        if CatSprite.right {
+            x += 80
+        }
+        if CatSprite.left {
+            x -= 150
+        }
+        switch resultString {
+        case "apple":
+            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+            food.position = CGPoint(x: x, y: 200)
+            addChild(food)
+        case "mango":
+            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString);
+            food.position = CGPoint(x: x, y: 200)
+           addChild(food)
+        case "orange":
+            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+            food.position = CGPoint(x: x, y: 200)
+            addChild(food)
+        case "pineapple":
+            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+            food.position = CGPoint(x: x, y: 200)
+            addChild(food)
+        case "grapes":
+            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+            food.position = CGPoint(x: x, y: 200)
+            addChild(food)
+        case "cherries":
+            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+            food.position = CGPoint(x: x, y: 200)
+            addChild(food)
+        case "melon":
+            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+            food.position = CGPoint(x: x, y: 200)
+            addChild(food)
+        case "corn":
+            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+            food.position = CGPoint(x: x, y: 200)
+            addChild(food)
+        case "pear":
+            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+            food.position = CGPoint(x: x, y: 200)
+            addChild(food)
+        case "carrot":
+            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+            food.position = CGPoint(x: x, y: 200)
+            addChild(food)
+        default: break
+        }
+    }
+    
+    
 }

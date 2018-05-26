@@ -42,14 +42,15 @@ class SoundManager : NSObject, AVAudioPlayerDelegate {
     "cat_meow_6.wav",
     "cat_meow_7.mp3"
   ]
-  private  let foodAudio = [  "carrot.mp3",
-                          "chili.mp3",
+
+  private  let foodAudio = [  "corn.mp3",
+                          "melon.mp3",
                           "tomato.mp3",
                           "cherries.mp3",
-                          "strawberry.mp3",
+                          "pear.mp3",
                           "grapes.mp3",
                           "pineapple.mp3",
-                          "raspberry.mp3",
+                          "mango.mp3",
                           "orange.mp3",
                           "apple.mp3"]
 
