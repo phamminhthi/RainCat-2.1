@@ -9,7 +9,10 @@
 import SpriteKit
 import Speech
 
-class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRecognizerDelegate {
+class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRecognizerDelegate, GetFoodNavigation {
+    
+  var timer = Timer()
+  var hihi = true
   private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))
   private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
   private var recognitionTask: SFSpeechRecognitionTask?
@@ -40,8 +43,11 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
   override func detachedFromScene() {}
 
   override func layoutScene(size : CGSize, extras menuExtras: MenuExtras?) {
-    //speechRecognizer?.delegate = self
-    startRecording()
+
+    timer.invalidate()
+    timer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    speechRecognizer?.delegate = self
+    //startRecording()
     if let extras = menuExtras {
       rainScale = extras.rainScale
       catScale = extras.catScale
@@ -60,6 +66,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
     //Hud Setup
     hud.setup(size: size, palette:  currentPalette, highScore: highScore)
     hud.quitNavigation = self
+    hud.getFoodNavigation = self
     addChild(hud)
 
     //Background Setup
@@ -87,7 +94,6 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
     umbrella.updatePosition(point: CGPoint(x: frame.midX, y: frame.midY))
 
     addChild(umbrella)
-    //startRecording()
   }
 
   override func attachedToScene() {
@@ -115,9 +121,33 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
         if audioEngine.isRunning {
             audioEngine.stop()
             recognitionRequest?.endAudio()
+            setAudioSessionDefault()
         }
     }
   }
+    func getFoodPressed() {
+        
+        if audioEngine.isRunning {
+            audioEngine.stop()
+            recognitionRequest?.endAudio()
+            setAudioSessionDefault()
+            print("Start Recording")
+        } else {
+            startRecording()
+            print("Stop Recording")
+        }
+    
+    }
+    
+    func setAudioSessionDefault(){
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(AVAudioSessionCategorySoloAmbient)
+            
+        } catch {
+            print("audioSession properties weren't set because of an error.")
+        }
+    }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     for touch in touches {
@@ -168,7 +198,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
 
   override func update(dt: TimeInterval) {
     // Called before each frame is rendered
-
+    //hihi = true
     // Update the Spawn Timer
     currentRainDropSpawnTime += dt
 
@@ -425,7 +455,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
   }
     
     func startRecording() {
-
+        
         if recognitionTask != nil {
             recognitionTask?.cancel()
             recognitionTask = nil
@@ -433,7 +463,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
         
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try audioSession.setCategory(AVAudioSessionCategoryRecord)
             try audioSession.setMode(AVAudioSessionModeMeasurement)
             try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
         } catch {
@@ -455,7 +485,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
             
             var isFinal = false
-            if let result = result, result.isFinal {
+            if let result = result{
                 var lastString = ""
                 let bestString = result.bestTranscription.formattedString.lowercased()
                 for i in result.bestTranscription.segments {
@@ -465,10 +495,8 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
                 }
                 
                 isFinal = result.isFinal
-//                if isFinal {
-//                    print(lastString)
-//                }
                 self.checkFruit(resultString: lastString)
+                print(lastString)
                 
                 
                 
@@ -480,7 +508,8 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
                 
                 self.recognitionRequest = nil
                 self.recognitionTask = nil
-                self.startRecording()
+                self.setAudioSessionDefault()
+                //self.startRecording()
                 //self.microphoneButton.isEnabled = true
             }
         })
@@ -503,57 +532,71 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
     }
     func checkFruit(resultString: String) {
         var x = cat.position.x
-        
-        print(x)
         if CatSprite.right {
             x += 80
         }
         if CatSprite.left {
             x -= 150
         }
-        switch resultString {
-        case "apple":
-            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
-            food.position = CGPoint(x: x, y: 200)
-            addChild(food)
-        case "mango":
-            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString);
-            food.position = CGPoint(x: x, y: 200)
-           addChild(food)
-        case "orange":
-            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
-            food.position = CGPoint(x: x, y: 200)
-            addChild(food)
-        case "pineapple":
-            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
-            food.position = CGPoint(x: x, y: 200)
-            addChild(food)
-        case "grapes":
-            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
-            food.position = CGPoint(x: x, y: 200)
-            addChild(food)
-        case "cherries":
-            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
-            food.position = CGPoint(x: x, y: 200)
-            addChild(food)
-        case "melon":
-            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
-            food.position = CGPoint(x: x, y: 200)
-            addChild(food)
-        case "corn":
-            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
-            food.position = CGPoint(x: x, y: 200)
-            addChild(food)
-        case "pear":
-            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
-            food.position = CGPoint(x: x, y: 200)
-            addChild(food)
-        case "carrot":
-            let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
-            food.position = CGPoint(x: x, y: 200)
-            addChild(food)
-        default: break
+        if hihi {
+            switch resultString {
+            case "apple":
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                food.position = CGPoint(x: x, y: 200)
+                hihi = false
+                addChild(food)
+            case "mango":
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString);
+                food.position = CGPoint(x: x, y: 200)
+                hihi = false
+                addChild(food)
+            case "orange":
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                food.position = CGPoint(x: x, y: 200)
+                hihi = false
+                addChild(food)
+            case "pineapple":
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                food.position = CGPoint(x: x, y: 200)
+                hihi = false
+                addChild(food)
+            case "grapes":
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                food.position = CGPoint(x: x, y: 200)
+                addChild(food)
+            case "cherries":
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                food.position = CGPoint(x: x, y: 200)
+                hihi = false
+                addChild(food)
+            case "melon":
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                food.position = CGPoint(x: x, y: 200)
+                hihi = false
+                addChild(food)
+            case "corn":
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                food.position = CGPoint(x: x, y: 200)
+                hihi = false
+                addChild(food)
+            case "pear":
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                food.position = CGPoint(x: x, y: 200)
+                hihi = false
+                addChild(food)
+            case "tomato":
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                food.position = CGPoint(x: x, y: 200)
+                hihi = false
+                addChild(food)
+            default: break
+            }
         }
+        
+    }
+    
+    public func updateTimer() {
+        hihi = true
     }
     
     

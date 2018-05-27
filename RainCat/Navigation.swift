@@ -51,3 +51,6 @@ protocol PingPongNavigation : QuitNavigation {
 protocol QuitNavigation : class {
   func quitPressed()
 }
+protocol GetFoodNavigation : class {
+    func getFoodPressed()
+}
