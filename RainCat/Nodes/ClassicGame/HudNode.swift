@@ -20,7 +20,7 @@ class HudNode : SKNode, Palettable {
 
   private var showingHighScore = false
   private var quitButton : TwoPaneButton!
-  private var foodButton : TwoPaneButton!
+  public static var foodButton : TwoPaneButton!
 
   private var highScoreColor = SKColor.white
 
@@ -51,14 +51,14 @@ class HudNode : SKNode, Palettable {
     highScoreColor = palette.groundColor
     addChild(quitButton)
     
-    foodButton = TwoPaneButton(color: UIColor.clear, size: CGSize(width: 110, height: 50))
-    foodButton.setup(text: "Get food", fontSize: 20)
-    foodButton.elevation = 5
-    foodButton.position = CGPoint(x: size.width - foodButton.size.width - 125, y: size.height - foodButton.size.height - 5)
-    foodButton.zPosition = 1000
-    foodButton.addTarget(self, selector: #selector(getFood), forControlEvents: .TouchUpInside)
+    HudNode.foodButton = TwoPaneButton(color: UIColor.clear, size: CGSize(width: 110, height: 50))
+    HudNode.foodButton.setup(text: "Get food", fontSize: 20)
+    HudNode.foodButton.elevation = 5
+    HudNode.foodButton.position = CGPoint(x: size.width - HudNode.foodButton.size.width - 125, y: size.height - HudNode.foodButton.size.height - 5)
+    HudNode.foodButton.zPosition = 1000
+    HudNode.foodButton.addTarget(self, selector: #selector(getFood), forControlEvents: .TouchUpInside)
     highScoreColor = palette.groundColor
-    addChild(foodButton)
+    addChild(HudNode.foodButton)
   }
 
   public func quit() {

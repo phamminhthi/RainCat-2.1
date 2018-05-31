@@ -9,11 +9,6 @@
 /* Begin PBXBuildFile section */
 		4B36A60C20B4737B001572D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBCE0A491D8D08EA006C1F44 /* Assets.xcassets */; };
 		4B931D5720B3E7C60047B065 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B931D5620B3E7C60047B065 /* LaunchScreen.storyboard */; };
-		4B931D5D20B3E9560047B065 /* bensound-clearday.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4B931D5820B3E9560047B065 /* bensound-clearday.mp3 */; };
-		4B931D5E20B3E9560047B065 /* bensound-jazzcomedy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4B931D5920B3E9560047B065 /* bensound-jazzcomedy.mp3 */; };
-		4B931D5F20B3E9560047B065 /* bensound-jazzyfrenchy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4B931D5A20B3E9560047B065 /* bensound-jazzyfrenchy.mp3 */; };
-		4B931D6020B3E9560047B065 /* bensound-littleidea.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4B931D5B20B3E9560047B065 /* bensound-littleidea.mp3 */; };
-		4B931D6120B3E9560047B065 /* jeffmoon-raincat-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4B931D5C20B3E9560047B065 /* jeffmoon-raincat-1.wav */; };
 		4BD1C22120B91C540099D159 /* corn.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BD1C21720B91C510099D159 /* corn.mp3 */; };
 		4BD1C22220B91C540099D159 /* grapes.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BD1C21820B91C520099D159 /* grapes.mp3 */; };
 		4BD1C22320B91C540099D159 /* orange.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BD1C21920B91C520099D159 /* orange.mp3 */; };
@@ -24,6 +19,11 @@
 		4BD1C22820B91C540099D159 /* cherries.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BD1C21E20B91C530099D159 /* cherries.mp3 */; };
 		4BD1C22920B91C540099D159 /* mango.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BD1C21F20B91C540099D159 /* mango.mp3 */; };
 		4BD1C22A20B91C540099D159 /* melon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BD1C22020B91C540099D159 /* melon.mp3 */; };
+		4BE3054F20BB19B9002D5928 /* bensound-clearday.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BE3054E20BB19B9002D5928 /* bensound-clearday.mp3 */; };
+		4BE3055320BB19CD002D5928 /* bensound-jazzcomedy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BE3055020BB19CD002D5928 /* bensound-jazzcomedy.mp3 */; };
+		4BE3055420BB19CD002D5928 /* bensound-jazzyfrenchy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BE3055120BB19CD002D5928 /* bensound-jazzyfrenchy.mp3 */; };
+		4BE3055520BB19CD002D5928 /* bensound-littleidea.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4BE3055220BB19CD002D5928 /* bensound-littleidea.mp3 */; };
+		4BE3055720BB1C9E002D5928 /* jeffmoon-raincat-1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4BE3055620BB1C9E002D5928 /* jeffmoon-raincat-1.wav */; };
 		BB0B1C881D8C9BA900C09901 /* LogoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0B1C871D8C9BA900C09901 /* LogoScene.swift */; };
 		BB0C20551E9EDAE8004C8E84 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0C20541E9EDAE8004C8E84 /* UserDefaultsManager.swift */; };
 		BB35FD831EBBA06A00D58F68 /* CreditLabelButtonSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB35FD821EBBA06A00D58F68 /* CreditLabelButtonSprite.swift */; };
@@ -127,11 +127,6 @@
 
 /* Begin PBXFileReference section */
 		4B931D5620B3E7C60047B065 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4B931D5820B3E9560047B065 /* bensound-clearday.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bensound-clearday.mp3"; path = "Music/bensound-clearday.mp3"; sourceTree = "<group>"; };
-		4B931D5920B3E9560047B065 /* bensound-jazzcomedy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bensound-jazzcomedy.mp3"; path = "Music/bensound-jazzcomedy.mp3"; sourceTree = "<group>"; };
-		4B931D5A20B3E9560047B065 /* bensound-jazzyfrenchy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bensound-jazzyfrenchy.mp3"; path = "Music/bensound-jazzyfrenchy.mp3"; sourceTree = "<group>"; };
-		4B931D5B20B3E9560047B065 /* bensound-littleidea.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bensound-littleidea.mp3"; path = "Music/bensound-littleidea.mp3"; sourceTree = "<group>"; };
-		4B931D5C20B3E9560047B065 /* jeffmoon-raincat-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "jeffmoon-raincat-1.wav"; path = "Music/jeffmoon-raincat-1.wav"; sourceTree = "<group>"; };
 		4BD1C21720B91C510099D159 /* corn.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = corn.mp3; path = Support/SFX/corn.mp3; sourceTree = "<group>"; };
 		4BD1C21820B91C520099D159 /* grapes.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = grapes.mp3; path = Support/SFX/grapes.mp3; sourceTree = "<group>"; };
 		4BD1C21920B91C520099D159 /* orange.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = orange.mp3; path = Support/SFX/orange.mp3; sourceTree = "<group>"; };
@@ -142,6 +137,11 @@
 		4BD1C21E20B91C530099D159 /* cherries.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cherries.mp3; path = Support/SFX/cherries.mp3; sourceTree = "<group>"; };
 		4BD1C21F20B91C540099D159 /* mango.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = mango.mp3; path = Support/SFX/mango.mp3; sourceTree = "<group>"; };
 		4BD1C22020B91C540099D159 /* melon.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = melon.mp3; path = Support/SFX/melon.mp3; sourceTree = "<group>"; };
+		4BE3054E20BB19B9002D5928 /* bensound-clearday.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bensound-clearday.mp3"; path = "Music/bensound-clearday.mp3"; sourceTree = "<group>"; };
+		4BE3055020BB19CD002D5928 /* bensound-jazzcomedy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bensound-jazzcomedy.mp3"; path = "Music/bensound-jazzcomedy.mp3"; sourceTree = "<group>"; };
+		4BE3055120BB19CD002D5928 /* bensound-jazzyfrenchy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bensound-jazzyfrenchy.mp3"; path = "Music/bensound-jazzyfrenchy.mp3"; sourceTree = "<group>"; };
+		4BE3055220BB19CD002D5928 /* bensound-littleidea.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "bensound-littleidea.mp3"; path = "Music/bensound-littleidea.mp3"; sourceTree = "<group>"; };
+		4BE3055620BB1C9E002D5928 /* jeffmoon-raincat-1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "jeffmoon-raincat-1.wav"; path = "Music/jeffmoon-raincat-1.wav"; sourceTree = "<group>"; };
 		BB0B1C871D8C9BA900C09901 /* LogoScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogoScene.swift; path = Scenes/LogoScene.swift; sourceTree = "<group>"; };
 		BB0C20541E9EDAE8004C8E84 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefaultsManager.swift; path = Utility/UserDefaultsManager.swift; sourceTree = "<group>"; };
 		BB35FD821EBBA06A00D58F68 /* CreditLabelButtonSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditLabelButtonSprite.swift; sourceTree = "<group>"; };
@@ -529,11 +529,11 @@
 		BBD0A8DB1D78F0F100002F71 /* Music */ = {
 			isa = PBXGroup;
 			children = (
-				4B931D5820B3E9560047B065 /* bensound-clearday.mp3 */,
-				4B931D5920B3E9560047B065 /* bensound-jazzcomedy.mp3 */,
-				4B931D5A20B3E9560047B065 /* bensound-jazzyfrenchy.mp3 */,
-				4B931D5B20B3E9560047B065 /* bensound-littleidea.mp3 */,
-				4B931D5C20B3E9560047B065 /* jeffmoon-raincat-1.wav */,
+				4BE3055620BB1C9E002D5928 /* jeffmoon-raincat-1.wav */,
+				4BE3055020BB19CD002D5928 /* bensound-jazzcomedy.mp3 */,
+				4BE3055120BB19CD002D5928 /* bensound-jazzyfrenchy.mp3 */,
+				4BE3055220BB19CD002D5928 /* bensound-littleidea.mp3 */,
+				4BE3054E20BB19B9002D5928 /* bensound-clearday.mp3 */,
 			);
 			name = Music;
 			sourceTree = "<group>";
@@ -618,14 +618,14 @@
 				BB476FB11F05636A005EB2AF /* lcd-pickup.wav in Resources */,
 				4B931D5720B3E7C60047B065 /* LaunchScreen.storyboard in Resources */,
 				BB459C4C1E9EB16B0027CA9B /* cat_meow_7.mp3 in Resources */,
+				4BE3054F20BB19B9002D5928 /* bensound-clearday.mp3 in Resources */,
 				4BD1C22220B91C540099D159 /* grapes.mp3 in Resources */,
-				4B931D6120B3E9560047B065 /* jeffmoon-raincat-1.wav in Resources */,
-				4B931D5F20B3E9560047B065 /* bensound-jazzyfrenchy.mp3 in Resources */,
+				4BE3055520BB19CD002D5928 /* bensound-littleidea.mp3 in Resources */,
+				4BE3055420BB19CD002D5928 /* bensound-jazzyfrenchy.mp3 in Resources */,
 				BB73A6681E9FD22200F6AFB2 /* LCDScreen.sks in Resources */,
 				4BD1C22820B91C540099D159 /* cherries.mp3 in Resources */,
 				BB98D4811DC3A49C00D17C8D /* LCDScene.sks in Resources */,
 				4BD1C22320B91C540099D159 /* orange.mp3 in Resources */,
-				4B931D6020B3E9560047B065 /* bensound-littleidea.mp3 in Resources */,
 				BBA2E4B11D74A62C00853E63 /* Main.storyboard in Resources */,
 				BB476FB71F056431005EB2AF /* move.wav in Resources */,
 				BBAF08181EA000E500AAF449 /* LCDScene-iPhone.sks in Resources */,
@@ -634,15 +634,15 @@
 				4BD1C22920B91C540099D159 /* mango.mp3 in Resources */,
 				4BD1C22520B91C540099D159 /* pineapple.mp3 in Resources */,
 				BB399C8F1EBA344900A750D3 /* TitleMenuScene.sks in Resources */,
+				4BE3055720BB1C9E002D5928 /* jeffmoon-raincat-1.wav in Resources */,
 				BBC63AAD1EC38C1000F48F27 /* PlayerSelectScene.sks in Resources */,
 				BBD0A8E61D79D4F500002F71 /* Pixel Digivolve.otf in Resources */,
 				4BD1C22120B91C540099D159 /* corn.mp3 in Resources */,
 				BBAF08231EA0253200AAF449 /* LogoScene-iPhone.sks in Resources */,
-				4B931D5E20B3E9560047B065 /* bensound-jazzcomedy.mp3 in Resources */,
 				BB476FB91F056630005EB2AF /* buttonClick.wav in Resources */,
 				BB459C501E9EB17F0027CA9B /* ColorPalette.plist in Resources */,
 				BB67AD821EC102EA00CA5205 /* CreditsScene.sks in Resources */,
-				4B931D5D20B3E9560047B065 /* bensound-clearday.mp3 in Resources */,
+				4BE3055320BB19CD002D5928 /* bensound-jazzcomedy.mp3 in Resources */,
 				BBC63AAB1EC377DC00F48F27 /* MultiplayerScene.sks in Resources */,
 				BB67AD861EC35F2900CA5205 /* SinglePlayerScene.sks in Resources */,
 				BB476FBD1F056A45005EB2AF /* hit.wav in Resources */,

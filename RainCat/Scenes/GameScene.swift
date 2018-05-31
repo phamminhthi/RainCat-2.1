@@ -40,6 +40,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
   private var umbrellaTouch : UITouch?
   private var catTouch : UITouch?
 
+    private var click = true
   override func detachedFromScene() {}
 
   override func layoutScene(size : CGSize, extras menuExtras: MenuExtras?) {
@@ -92,7 +93,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
     //Add Umbrella
     umbrella = UmbrellaSprite(palette: currentPalette)
     umbrella.updatePosition(point: CGPoint(x: frame.midX, y: frame.midY))
-
+    
     addChild(umbrella)
   }
 
@@ -126,15 +127,16 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
     }
   }
     func getFoodPressed() {
-        
+        if click{
         if audioEngine.isRunning {
             audioEngine.stop()
             recognitionRequest?.endAudio()
-            setAudioSessionDefault()
-            print("Start Recording")
-        } else {
-            startRecording()
+            //setAudioSessionDefault()
             print("Stop Recording")
+        } else {
+                startRecording()
+                print("Start Recording")
+            }
         }
     
     }
@@ -304,7 +306,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
       randomPosition = randomPosition.truncatingRemainder(dividingBy: size.width - foodEdgeMargin * 2)
       randomPosition += foodEdgeMargin
         
-      print(randomPosition)
+      //print(randomPosition)
       food?.position = CGPoint(x: randomPosition, y: size.height)
       food?.physicsBody?.friction = 100
       addChild(food!)
@@ -455,7 +457,8 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
   }
     
     func startRecording() {
-        
+        click = false
+        HudNode.foodButton.isHidden =  true
         if recognitionTask != nil {
             recognitionTask?.cancel()
             recognitionTask = nil
@@ -483,7 +486,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
         recognitionRequest.shouldReportPartialResults = true
         
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
-            
+
             var isFinal = false
             if let result = result{
                 var lastString = ""
@@ -508,7 +511,9 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
                 
                 self.recognitionRequest = nil
                 self.recognitionTask = nil
-                self.setAudioSessionDefault()
+                self.click = true
+                HudNode.foodButton.isHidden =  false
+                //self.setAudioSessionDefault()
                 //self.startRecording()
                 //self.microphoneButton.isEnabled = true
             }
