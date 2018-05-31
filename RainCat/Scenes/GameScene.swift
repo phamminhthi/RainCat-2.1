@@ -499,7 +499,6 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
                 
                 isFinal = result.isFinal
                 self.checkFruit(resultString: lastString)
-                print(lastString)
                 
                 
                 
