@@ -131,7 +131,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
         if audioEngine.isRunning {
             audioEngine.stop()
             recognitionRequest?.endAudio()
-            //setAudioSessionDefault()
+            setAudioSessionDefault()
             print("Stop Recording")
         } else {
                 startRecording()
