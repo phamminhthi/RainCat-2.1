@@ -46,7 +46,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
   override func layoutScene(size : CGSize, extras menuExtras: MenuExtras?) {
 
     timer.invalidate()
-    timer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     speechRecognizer?.delegate = self
     //startRecording()
     if let extras = menuExtras {
@@ -370,7 +370,12 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
     case FloorCategory:
       cat.isGrounded = true
     default:
-      cat.callFoodName()
+        if audioEngine.isRunning {
+            print("say somethings")
+        } else {
+            cat.callFoodName()
+        }
+
     }
   }
 
@@ -512,7 +517,7 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
                 self.recognitionTask = nil
                 self.click = true
                 HudNode.foodButton.isHidden =  false
-                //self.setAudioSessionDefault()
+                self.setAudioSessionDefault()
                 //self.startRecording()
                 //self.microphoneButton.isEnabled = true
             }
@@ -545,51 +550,51 @@ class GameScene: SceneNode, QuitNavigation, SKPhysicsContactDelegate,SFSpeechRec
         if hihi {
             switch resultString {
             case "apple":
-                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: "apple")
                 food.position = CGPoint(x: x, y: 200)
                 hihi = false
                 addChild(food)
             case "mango":
-                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString);
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: "mango");
                 food.position = CGPoint(x: x, y: 200)
                 hihi = false
                 addChild(food)
             case "orange":
-                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: "orange")
                 food.position = CGPoint(x: x, y: 200)
                 hihi = false
                 addChild(food)
             case "pineapple":
-                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: "pineapple")
                 food.position = CGPoint(x: x, y: 200)
                 hihi = false
                 addChild(food)
             case "grapes":
-                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: "grapes")
                 food.position = CGPoint(x: x, y: 200)
                 addChild(food)
             case "cherries":
-                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: "cherries")
                 food.position = CGPoint(x: x, y: 200)
                 hihi = false
                 addChild(food)
             case "melon":
-                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: "melon")
                 food.position = CGPoint(x: x, y: 200)
                 hihi = false
                 addChild(food)
             case "corn":
-                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: "corn")
                 food.position = CGPoint(x: x, y: 200)
                 hihi = false
                 addChild(food)
             case "pear":
-                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: "pear")
                 food.position = CGPoint(x: x, y: 200)
                 hihi = false
                 addChild(food)
             case "tomato":
-                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: resultString)
+                let food = FoodSprite.newInstanceCatFood(palette: currentPalette, foodName: "tomato")
                 food.position = CGPoint(x: x, y: 200)
                 hihi = false
                 addChild(food)
